@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lyfe Cafe - Cart</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav> 
+    <a href="index.html">
+      <div class="lyfeLogo">
+        <img src="image/lyfelogo.png" alt="Lyfe Logo">
+      </div>
+    </a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="coffee.html">Coffee Selection</a> 
+        <ul class="dropdown">
+          <li><a href="blackcoffee.html">Black Coffee</a></li>
+          <li><a href="milkbase.html">Milk-Based Coffee</a></li>
+          <li><a href="icecoffee.html">Iced Coffee</a></li>
+          <li><a href="specialty.html">Speicalty and Unique Coffee</a></li>
+        </ul>   
+        
+</li>
+      
+      <li><a href="brewing.html">Brewing Equipment</a></li>
+      <li><a href="events.html">Events & Workshops</a></li>
+      <li><a href="cart.html">Shopping Cart</a></li>
+      <li><a href="offers.html">Special Offers</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>Shopping Cart</h1>
+    <div class="cart-items">
+      <div class="cart-item">
+        <h2>Espresso</h2>
+        <p>Quantity:<button class="cartqty">-</button> <button class="cartqty">+</button></p>
+        <p>Price: $12.00</p>
+      </div>
+      <div class="cart-item">
+        <h2>Mojito</h2>
+        <p>Quantity:<button class="cartqty">-</button> <button class="cartqty">+</button></p>
+        <p>Price: $5.00</p>
+      </div>
+      <div class="cart-item">
+        <h2>Mocha</h2>
+        <p>Quantity:<button class="cartqty">-</button> <button class="cartqty">+</button></p>
+        <p>Price: $5.00</p>
+      </div>
+    </div>
+    <button class="cartButton">Proceed to Checkout</button>
+
+    <div class="carttotal">
+      <h2> Total Amount </h2>
+      <p> $22.0 </p>
+      <p> Cash on Delivery</p>
+    </div>
+  </main>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const cartItems = document.querySelectorAll(".cart-item");
+      const totalAmount = document.querySelector(".carttotal p");
+
+      function updateTotal() {
+        let total = 0;
+        cartItems.forEach(item => {
+          let quantity = parseInt(item.querySelector(".quantity").textContent);
+          let price = parseFloat(item.querySelector(".price").textContent.replace("$", ""));
+          total += quantity * price;
+        });
+        totalAmount.textContent = `$${total.toFixed(2)}`;
+      }
+
+      cartItems.forEach(item => {
+        const minusBtn = item.querySelector(".cartqty:first-of-type");
+        const plusBtn = item.querySelector(".cartqty:last-of-type");
+        const quantityDisplay = document.createElement("span");
+        quantityDisplay.classList.add("quantity");
+        quantityDisplay.textContent = "1";
+        minusBtn.after(quantityDisplay);
+
+        const priceDisplay = item.querySelector("p:last-of-type");
+        priceDisplay.innerHTML = `Price: $<span class="price">${priceDisplay.textContent.split("$")[1]}</span>`;
+
+        minusBtn.addEventListener("click", function () {
+          let quantity = parseInt(quantityDisplay.textContent);
+          if (quantity > 1) {
+            quantityDisplay.textContent = quantity - 1;
+            updateTotal();
+          }
+        });
+
+        plusBtn.addEventListener("click", function () {
+          let quantity = parseInt(quantityDisplay.textContent);
+          quantityDisplay.textContent = quantity + 1;
+          updateTotal();
+        });
+      });
+
+      updateTotal();
+    });
+  </script>
+
+    
+  <footer>
+    <p>
+      <a href="https://www.facebook.com/"> <img src="image/facebooklogo.png" alt=""></a>
+      <a href="https://www.Instagram.com"><img src="image/instaLogo.png" alt=""></a>
+      <a href="https://www.twitter.com"><img src="image/twitterlogo.png" alt=""></a>
+    </p>
+        <p>&copy; 2025 Lyfe Cafe. All rights reserved.</p>
+  </footer>
+</body>
+</html>
